@@ -82,9 +82,11 @@ while running:
     if not PAINT_ORBIT:
         display.fill(BACKGROUND_COLOR)
 
-    inkblobs[:] = [blob for blob in inkblobs if blob.radius >= 1]
-
-    for blob in inkblobs:
+    for blob in reversed(inkblobs):
+        # reversed() because the list is modified while iterating
+        if blob.radius < 1:
+            inkblobs.remove(blob)
+            continue
         blob.update(dt)
         blob.draw()
     pygame.display.flip()
