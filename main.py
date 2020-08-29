@@ -82,10 +82,10 @@ while running:
     if not PAINT_ORBIT:
         display.fill(BACKGROUND_COLOR)
 
-    for blob in reversed(inkblobs):
-        # reversed() because the list is modified while iterating
+    for i, blob in sorted(enumerate(inkblobs), reverse=True):
+        # reversed because the list is modified while iterating
         if blob.radius < 1:
-            inkblobs.remove(blob)
+            del inkblobs[i]
             continue
         blob.update(dt)
         blob.draw()
